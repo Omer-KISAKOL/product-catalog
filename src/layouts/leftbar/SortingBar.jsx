@@ -10,8 +10,9 @@ export default function SortingBar() {
 
     return (
         <div className="sorting-bar">
-            <label>Sort by:</label>
-            <select onChange={handleSortChange}>
+            <h3>Sort</h3>
+            <label htmlFor='sort'>Sort by:</label>
+            <select id='sort' onChange={handleSortChange}>
                 <option value="">Default</option>
                 <option value="price-down">Price: Low to High</option>
                 <option value="price-up">Price: High to Low</option>

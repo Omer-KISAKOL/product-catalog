@@ -13,9 +13,11 @@ export default function ProductList() {
     const observer = useRef();
     const filter = useSelector((state) => state.filters.filter);
     const sort = useSelector((state) => state.filters.sort);
+    const search = useSelector((state) => state.filters.search);
     const itemsPerPage = 5;
 
-    const newProducts = useMemo(() => Filters(products, filter, sort), [products, filter, sort]);
+
+    const newProducts = useMemo(() => Filters(products, filter, sort, search), [products, filter, sort, search]);
 
     useEffect(() => {
         if (newProducts) {

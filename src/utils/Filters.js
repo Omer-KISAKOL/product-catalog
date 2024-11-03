@@ -1,7 +1,14 @@
-export function Filters(products, filter, sort) {
+export function Filters(products, filter, sort, search) {
     if (!products) return [];
 
     let filterProducts = [...products];
+
+    // Arama filtresi
+    if (search) {
+        filterProducts = filterProducts.filter((product) =>
+            product.title.toLowerCase().includes(search.toLowerCase())
+        );
+    }
 
     // Filtreleme
     if (filter.category) {

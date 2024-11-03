@@ -8,12 +8,12 @@ return(
     <div>
 
         <div>
-            <div><SortingBar/></div>
             <div><FilterSidebar/></div>
+            <div><SortingBar/></div>
         </div>
 
         <div>
-            <HomePage/>
+        <HomePage/>
         </div>
 
         <div>

@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
-import { setFilter } from '../../features/filterSlice.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {setFilter, setSearch} from '../../features/filterSlice.js';
 
 export default function FilterSidebar() {
     const dispatch = useDispatch();
+    const search = useSelector(state => state.filters.search);
 
     const handleCategoryChange = (event) => {
         dispatch(setFilter({ type: 'category', value: event.target.value }));
@@ -14,11 +15,23 @@ export default function FilterSidebar() {
 
     return (
         <aside className="filter-sidebar">
+
+            <div>
+                <label htmlFor="search">Search</label>
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="Search products..."
+                    value={search}
+                    onChange={(e) => dispatch(setSearch(e.target.value))}
+                />
+            </div>
+
             <h3>Filter</h3>
 
             <div>
-                <label>Category:</label>
-                <select onChange={handleCategoryChange}>
+                <label htmlFor='category'>Category:</label>
+                <select id='category' onChange={handleCategoryChange}>
                     <option value="">All</option>
                     <option value="electronics">Electronics</option>
                     <option value="jewelery">Jewelery</option>
@@ -28,8 +41,8 @@ export default function FilterSidebar() {
             </div>
 
             <div>
-                <label>Price Range:</label>
-                <select onChange={handlePriceRangeChange}>
+                <label htmlFor='price'>Price Range:</label>
+                <select id='price' onChange={handlePriceRangeChange}>
                     <option value="">All</option>
                     <option value="0-100">$0 - $100</option>
                     <option value="100-200">$100 - $200</option>

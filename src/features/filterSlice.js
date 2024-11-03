@@ -4,7 +4,8 @@ const filterSlice = createSlice({
     name: 'filters',
     initialState: {
         filter: {},
-        sort: ''
+        sort: '',
+        search: '',
     },
     reducers: {
         setFilter(state, action) {
@@ -14,8 +15,11 @@ const filterSlice = createSlice({
         setSort(state, action) {
             state.sort = action.payload;
         },
+        setSearch(state, action) {
+            state.search = action.payload;
+        },
     },
 });
 
-export const {setFilter, setSort} = filterSlice.actions;
+export const {setFilter, setSort, setSearch} = filterSlice.actions;
 export default filterSlice.reducer;
