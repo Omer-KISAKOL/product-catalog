@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { setSort } from '../features/productSlice';
+import { setSort } from '../../features/filterSlice.js';
 
-function SortingBar() {
+export default function SortingBar() {
     const dispatch = useDispatch();
 
     const handleSortChange = (event) => {
@@ -20,5 +20,3 @@ function SortingBar() {
         </div>
     );
 }
-
-export default SortingBar;

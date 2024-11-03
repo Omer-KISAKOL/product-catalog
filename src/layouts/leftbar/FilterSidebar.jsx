@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { setFilter } from '../features/productSlice';
+import { setFilter } from '../../features/filterSlice.js';
 
-function FilterSidebar() {
+export default function FilterSidebar() {
     const dispatch = useDispatch();
 
     const handleCategoryChange = (event) => {
@@ -40,5 +40,3 @@ function FilterSidebar() {
         </aside>
     );
 }
-
-export default FilterSidebar;
