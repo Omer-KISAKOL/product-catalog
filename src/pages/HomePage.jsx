@@ -5,7 +5,7 @@ export default function HomePage() {
 
     return (
         <div>
-            <ProductList />
+            <ProductList/>
         </div>
     )
 }

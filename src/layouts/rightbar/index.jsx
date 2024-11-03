@@ -1,9 +1,16 @@
-import {Cart} from "../../components/Cart.jsx";
+import {lazy, memo, Suspense} from "react";
 
-export default function RightBar() {
-    return(
+const Cart = lazy(() => import("../../components/Cart.jsx"));
+
+
+function RightCard() {
+    return (
         <div>
-            <Cart/>
+            <Suspense fallback={<div>Yükleniyor..................................................</div>}>
+                <Cart/>
+            </Suspense>
         </div>
     )
 }
+
+export const RightBar = memo(RightCard);

@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { setSort } from '../../features/filterSlice.js';
+import {useDispatch} from 'react-redux';
+import {setSort} from '../../features/filterSlice.js';
 
 export default function SortingBar() {
     const dispatch = useDispatch();

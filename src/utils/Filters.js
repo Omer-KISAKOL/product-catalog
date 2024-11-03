@@ -29,7 +29,7 @@ export function Filters(products, filter, sort, search) {
         filterProducts.sort((a, b) => a.price - b.price);
     } else if (sort === 'price-up') {
         filterProducts.sort((a, b) => b.price - a.price);
-    }else if (sort === 'popularity') {
+    } else if (sort === 'popularity') {
         // Rating'e göre sıralama (rating.rate -> rating.count)
         filterProducts.sort((a, b) => {
             if (b.rating.rate === a.rating.rate) {

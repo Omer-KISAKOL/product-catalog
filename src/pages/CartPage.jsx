@@ -1,10 +1,14 @@
-import {Cart} from "../components/Cart.jsx";
+import {lazy, Suspense} from "react";
+
+const Cart = lazy(() => import("../components/Cart.jsx"));
 
 export default function CartPage() {
 
     return (
         <div>
-            <Cart/>
+            <Suspense fallback={<div>Yükleniyor..................................................</div>}>
+                <Cart/>
+            </Suspense>
         </div>
     )
 }

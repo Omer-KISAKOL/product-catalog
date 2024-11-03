@@ -1,7 +1,9 @@
-import {memo} from "react";
-import {ProductCard} from "./ProductCard.jsx";
+import {lazy, memo, Suspense} from "react";
 import PropTypes from "prop-types";
-function Product({ products, lastProductRef }) {
+
+const ProductCard = lazy(() => import("./ProductCard.jsx"));
+
+function Product({products, lastProductRef}) {
     return (
         <div className="product-grid">
             {products.length > 0 ? (
@@ -10,9 +12,9 @@ function Product({ products, lastProductRef }) {
                         key={product.id}
                         ref={index === products.length - 1 ? lastProductRef : null}
                     >
-                        <ProductCard product={product}/>
-                        <hr/>
-                        <br/>
+                        <Suspense fallback={<div>Yükleniyor..................................................</div>}>
+                            <ProductCard product={product}/>
+                        </Suspense>
                     </div>
                 ))
             ) : (
@@ -22,7 +24,8 @@ function Product({ products, lastProductRef }) {
     )
 }
 
-export const Products = memo(Product);
+const Products = memo(Product);
+export default Products;
 
 Product.propTypes = {
     products: PropTypes.array.isRequired,

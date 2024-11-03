@@ -1,11 +1,12 @@
-import {useMemo, useRef, useState, useEffect, useCallback} from 'react';
-import { useSelector } from 'react-redux';
-import { useProducts } from '../hooks/useProducts.js';
+import {useMemo, useRef, useState, useEffect, useCallback, lazy, Suspense} from 'react';
+import {useSelector} from 'react-redux';
+import {useProducts} from '../hooks/useProducts.js';
 import {Filters} from "../utils/Filters.js";
-import {Products} from "./Products.jsx";
+
+const Products = lazy(() => import("./Products.jsx"));
 
 export default function ProductList() {
-    const { data: products, isLoading, error } = useProducts();
+    const {data: products, isLoading, error} = useProducts();
 
     // Lazy loading & Infinite Scroll states
     const [visibleProducts, setVisibleProducts] = useState([]);
@@ -44,13 +45,13 @@ export default function ProductList() {
         if (node) observer.current.observe(node);
     }, [loadMoreItems, visibleProducts.length, newProducts.length]);
 
-    if (isLoading) return(
+    if (isLoading) return (
         <div>
             <p>Loading products...</p>
         </div>
 
     );
-    if (error) return(
+    if (error) return (
         <div>
             <p>Error fetching products.</p>
         </div>
@@ -58,6 +59,8 @@ export default function ProductList() {
     console.log(visibleProducts, newProducts);
 
     return (
-        <Products products={visibleProducts} lastProductRef={lastProductRef} />
+        <Suspense fallback={<div>Yükleniyor....................................................................</div>}>
+            <Products products={visibleProducts} lastProductRef={lastProductRef}/>
+        </Suspense>
     )
 }

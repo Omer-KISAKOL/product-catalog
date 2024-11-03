@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const filterSlice = createSlice({
     name: 'filters',
@@ -9,7 +9,7 @@ const filterSlice = createSlice({
     },
     reducers: {
         setFilter(state, action) {
-            const { type, value } = action.payload;
+            const {type, value} = action.payload;
             state.filter[type] = value;
         },
         setSort(state, action) {

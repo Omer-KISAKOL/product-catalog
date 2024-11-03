@@ -1,25 +1,25 @@
 import SortingBar from "./leftbar/SortingBar.jsx";
 import FilterSidebar from "./leftbar/FilterSidebar.jsx";
 import HomePage from "../pages/HomePage.jsx";
-import RightBar from "./rightbar/index.jsx";
+import {RightBar} from "./rightbar/index.jsx";
 
 export default function MainLayout() {
-return(
-    <div>
-
+    return (
         <div>
-            <div><FilterSidebar/></div>
-            <div><SortingBar/></div>
-        </div>
 
-        <div>
-        <HomePage/>
-        </div>
+            <div>
+                <div><FilterSidebar/></div>
+                <div><SortingBar/></div>
+            </div>
 
-        <div>
-            <RightBar/>
-        </div>
+            <div>
+                <HomePage/>
+            </div>
 
-    </div>
-)
+            <div>
+                <RightBar/>
+            </div>
+
+        </div>
+    )
 }

@@ -6,11 +6,11 @@ export default function FilterSidebar() {
     const search = useSelector(state => state.filters.search);
 
     const handleCategoryChange = (event) => {
-        dispatch(setFilter({ type: 'category', value: event.target.value }));
+        dispatch(setFilter({type: 'category', value: event.target.value}));
     };
 
     const handlePriceRangeChange = (event) => {
-        dispatch(setFilter({ type: 'priceRange', value: event.target.value }));
+        dispatch(setFilter({type: 'priceRange', value: event.target.value}));
     };
 
     return (

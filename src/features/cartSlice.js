@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {getLocal , setLocal} from "../utils/LocalStorage.js";
+import {createSlice} from '@reduxjs/toolkit';
+import {getLocal, setLocal} from "../utils/LocalStorage.js";
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -13,7 +13,7 @@ const cartSlice = createSlice({
             if (item) {
                 item.quantity += 1;
             } else {
-                state.items.push({ ...action.payload, quantity: 1 });
+                state.items.push({...action.payload, quantity: 1});
             }
             state.totalAmount += action.payload.price;
 

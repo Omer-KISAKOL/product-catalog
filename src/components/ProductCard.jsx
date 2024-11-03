@@ -1,9 +1,11 @@
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import PropTypes from "prop-types";
-import { addToCart } from '../features/cartSlice';
-import {memo, useCallback} from "react";
+import {addToCart} from '../features/cartSlice';
+import {useCallback} from "react";
+import {Card, Image, Rating, Title, Category, Price} from '../styles/card.js';
+import {Button} from '../styles/button.js';
 
-function ProductInfo({ product })  {
+export default function ProductCard({product}) {
     const dispatch = useDispatch();
 
     const handleAddToCart = useCallback(() => {
@@ -11,29 +13,27 @@ function ProductInfo({ product })  {
     }, [dispatch, product]);
 
     return (
-        <div className="product-card">
-
+        <Card>
             <div>
-                <img src={product.image} alt={product.title} width={50}/>
-                <p>{product.rating.rate} yıldız</p>
-                <p>{product.rating.count} yorum</p>
+                <Image>
+                    <img src={product.image} loading='lazy' alt={product.title} width={50}/>
+                </Image>
+                <Rating>{product.rating.rate} yıldız | {product.rating.count} yorum</Rating>
             </div>
 
             <div>
-                <h3>{product.title}</h3>
-                <p>{product.category}</p>
-                <p>{product.price}</p>
+                <Title>{product.title}</Title>
+                <Category>{product.category}</Category>
+                <Price>${product.price}</Price>
             </div>
 
             <div>
-                <button onClick={handleAddToCart}>Add to Cart</button>
+                <Button onClick={handleAddToCart} primary="true">Add to Cart</Button>
             </div>
-        </div>
+        </Card>
     );
 }
 
-export const ProductCard = memo(ProductInfo);
-
-ProductInfo.propTypes = {
+ProductCard.propTypes = {
     product: PropTypes.object.isRequired,
 }
