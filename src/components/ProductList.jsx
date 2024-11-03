@@ -1,9 +1,10 @@
-import {useMemo, useRef, useState, useEffect, useCallback, lazy, Suspense} from 'react';
+import {useMemo, useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {useProducts} from '../hooks/useProducts.js';
 import {Filters} from "../utils/Filters.js";
-
-const Products = lazy(() => import("./Products.jsx"));
+import useInView from "../hooks/shared/useInView.js";
+import Products from "./Products.jsx";
+import LoadingCircle from "../styles/LoadingCircle.js";
 
 export default function ProductList() {
     const {data: products, isLoading, error} = useProducts();
@@ -11,7 +12,6 @@ export default function ProductList() {
     // Lazy loading & Infinite Scroll states
     const [visibleProducts, setVisibleProducts] = useState([]);
     const [page, setPage] = useState(1);
-    const observer = useRef();
     const filter = useSelector((state) => state.filters.filter);
     const sort = useSelector((state) => state.filters.sort);
     const search = useSelector((state) => state.filters.search);
@@ -26,24 +26,14 @@ export default function ProductList() {
         }
     }, [newProducts]);
 
-    // Load more items function
-    const loadMoreItems = useCallback(() => {
-        const nextPage = page + 1;
-        const newVisibleProducts = newProducts.slice(0, nextPage * itemsPerPage);
-        setVisibleProducts(newVisibleProducts);
-        setPage(nextPage);
-    }, [page, newProducts]);
-
-    // Intersection Observer kullanarak sayfanın sonuna yaklaşıldığında loadMoreItems fonksiyonunu çalıştırır
-    const lastProductRef = useCallback((node) => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && visibleProducts.length < newProducts.length) {
-                loadMoreItems();
-            }
-        });
-        if (node) observer.current.observe(node);
-    }, [loadMoreItems, visibleProducts.length, newProducts.length]);
+    const {ref: loadMoreRef} = useInView(
+        () => {
+            const nextPage = page + 1;
+            const newVisibleProducts = newProducts.slice(0, nextPage * itemsPerPage);
+            setVisibleProducts(newVisibleProducts);
+            setPage(nextPage);
+        }
+    )
 
     if (isLoading) return (
         <div>
@@ -59,8 +49,11 @@ export default function ProductList() {
     console.log(visibleProducts, newProducts);
 
     return (
-        <Suspense fallback={<div>Yükleniyor....................................................................</div>}>
-            <Products products={visibleProducts} lastProductRef={lastProductRef}/>
-        </Suspense>
+        <div>
+            <Products products={visibleProducts}/>
+            <div ref={loadMoreRef}>
+                {visibleProducts.length > 0 && (<div><LoadingCircle size="20px"/></div>)}
+            </div>
+        </div>
     )
 }

@@ -32,7 +32,6 @@ body {
   justify-items: center;
   align-content: center;
   place-content: center;
-  min-width: 320px;
   min-height: 100vh;
 
 }

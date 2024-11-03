@@ -1,18 +1,18 @@
 import {lazy, memo, Suspense} from "react";
 import PropTypes from "prop-types";
+import {SkeletonImage} from "../styles/skeleton.js";
 
 const ProductCard = lazy(() => import("./ProductCard.jsx"));
 
-function Product({products, lastProductRef}) {
+function Product({products}) {
     return (
         <div className="product-grid">
             {products.length > 0 ? (
-                products.map((product, index) => (
+                products.map((product) => (
                     <div
                         key={product.id}
-                        ref={index === products.length - 1 ? lastProductRef : null}
                     >
-                        <Suspense fallback={<div>Yükleniyor..................................................</div>}>
+                        <Suspense fallback={<div><SkeletonImage/></div>}>
                             <ProductCard product={product}/>
                         </Suspense>
                     </div>
@@ -29,5 +29,4 @@ export default Products;
 
 Product.propTypes = {
     products: PropTypes.array.isRequired,
-    lastProductRef: PropTypes.func.isRequired
 }
