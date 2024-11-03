@@ -1,4 +1,4 @@
-import Cart from "../../components/Cart.jsx";
+import {Cart} from "../../components/Cart.jsx";
 
 export default function RightBar() {
     return(

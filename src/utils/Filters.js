@@ -18,9 +18,9 @@ export function Filters(products, filter, sort) {
     }
 
     // Sıralama
-    if (sort === 'price-asc') {
+    if (sort === 'price-down') {
         filterProducts.sort((a, b) => a.price - b.price);
-    } else if (sort === 'price-desc') {
+    } else if (sort === 'price-up') {
         filterProducts.sort((a, b) => b.price - a.price);
     }else if (sort === 'popularity') {
         // Rating'e göre sıralama (rating.rate -> rating.count)

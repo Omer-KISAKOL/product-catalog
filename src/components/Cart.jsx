@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../features/cartSlice';
+import {memo} from "react";
 
-export default function Cart() {
+function CartInfo() {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -9,27 +10,29 @@ export default function Cart() {
 
     return (
         <div className="cart">
+            <h3>Total: ${cart.totalAmount.toFixed(2)}</h3>
             <h2>Shopping Cart</h2>
             {cart.items.length > 0 ? (
                 cart.items.map((item) => (
-                <div key={item.id} className="cart-item">
-                    <img src={item.image} alt={item.title} width={150}/>
-                    <p>{item.rating.rate} yıldız</p>
-                    <p>{item.rating.count} yorum</p>
-                    <p>{item.title}</p>
-                    <p>{item.category}</p>
-                    <p>${item.price} x {item.quantity}</p>
-                    <button onClick={() => dispatch(removeFromCart(item))}>Remove</button>
-                    <hr/>
-                </div>
-                ))
-                ):(
-                    <div>
-                        Sepetiniz boş!
+                    <div key={item.id} className="cart-item">
+                        <img src={item.image} alt={item.title} width={150}/>
+                        <p>{item.rating.rate} yıldız</p>
+                        <p>{item.rating.count} yorum</p>
+                        <p>{item.title}</p>
+                        <p>{item.category}</p>
+                        <p>${item.price} x {item.quantity}</p>
+                        <button onClick={() => dispatch(removeFromCart(item))}>Remove</button>
+                        <hr/>
                     </div>
-                    )
-                }
-            <h3>Total: ${cart.totalAmount.toFixed(2)}</h3>
+                ))
+            ) : (
+                <div>
+                    Sepetiniz boş!
+                </div>
+            )
+            }
         </div>
     );
 }
+
+export const Cart = memo(CartInfo);

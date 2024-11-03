@@ -13,8 +13,8 @@ export default function SortingBar() {
             <label>Sort by:</label>
             <select onChange={handleSortChange}>
                 <option value="">Default</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
+                <option value="price-down">Price: Low to High</option>
+                <option value="price-up">Price: High to Low</option>
                 <option value="popularity">Popularity</option>
             </select>
         </div>

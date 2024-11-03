@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from "prop-types";
 import { addToCart } from '../features/cartSlice';
-import {useCallback} from "react";
+import {memo, useCallback} from "react";
 
-export function ProductCard({ product })  {
+function ProductInfo({ product })  {
     const dispatch = useDispatch();
 
     const handleAddToCart = useCallback(() => {
@@ -12,19 +12,28 @@ export function ProductCard({ product })  {
 
     return (
         <div className="product-card">
-            <img src={product.image} alt={product.title} width={150}/>
-            <p>{product.rating.rate} yıldız</p>
-            <p>{product.rating.count} yorum</p>
-            <h3>{product.title}</h3>
-            <p>{product.category}</p>
-            <p>{product.price}</p>
-            <button onClick={handleAddToCart}>Add to Cart</button>
-            <hr/>
-            <hr/>
+
+            <div>
+                <img src={product.image} alt={product.title} width={50}/>
+                <p>{product.rating.rate} yıldız</p>
+                <p>{product.rating.count} yorum</p>
+            </div>
+
+            <div>
+                <h3>{product.title}</h3>
+                <p>{product.category}</p>
+                <p>{product.price}</p>
+            </div>
+
+            <div>
+                <button onClick={handleAddToCart}>Add to Cart</button>
+            </div>
         </div>
     );
 }
 
-ProductCard.propTypes = {
+export const ProductCard = memo(ProductInfo);
+
+ProductInfo.propTypes = {
     product: PropTypes.object.isRequired,
 }
