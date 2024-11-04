@@ -6,10 +6,8 @@ import configureStore from 'redux-mock-store';
 import Cart from './index.jsx';
 import { removeFromCart } from '../../store/slices/cartSlice.js';
 
-// Mock the redux store
 const mockStore = configureStore([]);
 
-// Mock cart items
 const mockCartItems = [
     {
         id: 1,

@@ -30,6 +30,7 @@ const ProductList = () => {
         return filterProducts(products, filter, sort, search);
     }, [products, filter, sort, search]);
 
+    //determining how long the sequence will be long
     useEffect(() => {
         if (filteredProducts) {
             setVisibleProducts(filteredProducts.slice(0, UI_CONFIG.ITEMS_PER_PAGE));

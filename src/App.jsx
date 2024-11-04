@@ -5,7 +5,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainLayout from "./layouts/index.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
-import GlobalStyle from "./styles/GlobalStyle.js";
 
 const queryClient = new QueryClient({
     defaultOptions: {

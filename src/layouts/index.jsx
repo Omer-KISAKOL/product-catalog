@@ -19,6 +19,7 @@ export default function MainLayout() {
 
     const toggleSidebar = () => setIsOpen(!isOpen);
 
+    //Sidebar closes on external sidebar click
     const handleClickOutside = (e) => {
         if (
             isOpen &&

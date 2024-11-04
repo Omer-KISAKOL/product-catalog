@@ -10,7 +10,6 @@ import { addToCart } from '../../store/slices/cartSlice.js';
 expect.extend(toHaveNoViolations);
 const mockStore = configureStore([]);
 
-// Mock product data
 const mockProduct = {
   id: 1,
   title: "Test Product",
@@ -31,7 +30,6 @@ describe('ProductCard Component', () => {
     store.dispatch = jest.fn();
   });
 
-  // Previous tests remain the same...
   test('renders product card with all product information', () => {
     render(
       <Provider store={store}>
@@ -74,7 +72,6 @@ describe('ProductCard Component', () => {
     expect(store.dispatch).toHaveBeenCalledWith(addToCart(mockProduct));
   });
 
-  // New Accessibility Tests
   describe('Accessibility', () => {
     test('should have no accessibility violations', async () => {
       const { container } = render(
@@ -107,11 +104,9 @@ describe('ProductCard Component', () => {
 
       const addButton = screen.getByRole('button', { name: 'Add to Cart' });
       
-      // Check if the button can receive focus
       addButton.focus();
       expect(addButton).toHaveFocus();
 
-      // Simulate keyboard interaction
       fireEvent.keyPress(addButton, { key: 'Enter', code: 'Enter', charCode: 13 });
       expect(store.dispatch).toHaveBeenCalledWith(addToCart(mockProduct));
     });
@@ -123,7 +118,6 @@ describe('ProductCard Component', () => {
         </Provider>
       );
 
-      // Check for proper rating annotation
       const ratingText = screen.getByText(/yıldız/);
       expect(ratingText).toHaveAttribute('aria-label', expect.stringContaining('rating'));
 
@@ -142,8 +136,7 @@ describe('ProductCard Component', () => {
       const card = container.firstChild;
       const computedStyle = window.getComputedStyle(card);
       
-      // This test assumes you're using CSS-in-JS or styled-components
-      // You'll need to adjust based on your actual styling implementation
+
       expect(computedStyle.color).toBeDefined();
       expect(computedStyle.backgroundColor).toBeDefined();
     });
@@ -171,13 +164,10 @@ describe('ProductCard Component', () => {
 
       const addButton = screen.getByRole('button', { name: 'Add to Cart' });
 
-      // Test focus handling
       addButton.focus();
       expect(document.activeElement).toBe(addButton);
 
-      // Test keyboard navigation
       fireEvent.keyDown(addButton, { key: 'Tab' });
-      // Verify focus moves appropriately (this might need adjustment based on your DOM structure)
       expect(document.activeElement).not.toBe(addButton);
     });
 
@@ -188,16 +178,12 @@ describe('ProductCard Component', () => {
         </Provider>
       );
 
-      // Get the card container
       const card = container.firstChild;
       
-      // Verify the text can be resized without breaking layout
       const originalHeight = card.clientHeight;
       
-      // Simulate text resize by adding a class that increases font size
       card.style.fontSize = '200%';
       
-      // Check if the container adapts to the new text size
       expect(card.clientHeight).toBeGreaterThan(originalHeight);
     });
   });
