@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {addToCart, removeFromCart} from '../../store/slices/cartSlice.js';
-import {Card, Image, Rating, Title, Category, Price} from '../../styles/card.js';
+import {Card, Image, Rating, Title, Category, Price, TitleH} from '../../styles/card.js';
 import {Button} from '../../styles/button.js';
 import {lazy, Suspense} from "react";
 import LoadingCircle from "../../styles/LoadingCircle.js";
@@ -19,7 +19,7 @@ export default function Cart() {
 
     return (
         <CartContent>
-            <h2>Shopping Cart</h2>
+            <TitleH>Shopping Cart</TitleH>
 
             <ProductListContainer>
                 {cart.items.length > 0 ? (

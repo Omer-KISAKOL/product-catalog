@@ -11,6 +11,7 @@ import {
 import {ToggleLeftButton} from "./leftbar/styles.js";
 import {FaCartShopping} from "react-icons/fa6";
 import {Link} from "react-router-dom";
+import {TitleH} from "../styles/card.js";
 
 export default function MainLayout() {
     const [isOpen, setIsOpen] = useState(false);
@@ -46,6 +47,7 @@ export default function MainLayout() {
                 <ToggleLeftButton ref={toggleLeftButtonRef} onClick={toggleSidebar}>
                     {isOpen ? 'Close' : 'Filters'}
                 </ToggleLeftButton>
+                <TitleH>Product Catalog</TitleH>
                 <Link to='/cart' target="_blank">
                     <ToggleButton>
                         <FaCartShopping/>

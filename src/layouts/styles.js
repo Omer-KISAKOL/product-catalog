@@ -20,7 +20,7 @@ export const Navbar = styled.nav`
     top: 0;
     z-index: 1002;
     @media (min-width: 769px) {
-        justify-content: end;
+        justify-content: space-between;
     }
 `;
 

@@ -69,3 +69,15 @@ export const Price = styled.p`
     color: #28a745; /* Green color */
     margin-bottom: 16px;
 `;
+
+export const TitleH = styled.h2`
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    //margin: 20px 0;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+`;
