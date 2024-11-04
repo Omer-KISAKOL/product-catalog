@@ -29,7 +29,7 @@ const Skeleton = styled.div`
     }
 `;
 
-export const SkeletonImage = styled(Skeleton)` width: 900px; height: 140px; border-radius: 8px; margin: 1rem 5rem`;
+export const SkeletonImage = styled(Skeleton)` width: 300px; height: 385px; border-radius: 8px; margin: 1rem 5rem`;
 
 
 export default Skeleton;

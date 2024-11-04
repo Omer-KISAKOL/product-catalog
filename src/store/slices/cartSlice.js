@@ -1,11 +1,11 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {getLocal, setLocal} from "../utils/LocalStorage.js";
+import {createSlice} from "@reduxjs/toolkit";
+import {getLocal, setLocal} from "../../utils/LocalStorage.js";
 
 const cartSlice = createSlice({
-    name: 'cart',
+    name: "cart",
     initialState: {
-        items: getLocal('cartItems', []),
-        totalAmount: getLocal('totalAmount', 0),
+        items: getLocal("cartItems", []),
+        totalAmount: getLocal("totalAmount", 0),
     },
     reducers: {
         addToCart(state, action) {
@@ -17,8 +17,8 @@ const cartSlice = createSlice({
             }
             state.totalAmount += action.payload.price;
 
-            setLocal('cartItems', state.items);
-            setLocal('totalAmount', state.totalAmount);
+            setLocal("cartItems", state.items);
+            setLocal("totalAmount", state.totalAmount);
         },
         removeFromCart(state, action) {
             const item = state.items.find((i) => i.id === action.payload.id);
@@ -29,8 +29,8 @@ const cartSlice = createSlice({
             }
             state.totalAmount = Math.max(0, state.totalAmount - action.payload.price);
 
-            setLocal('cartItems', state.items);
-            setLocal('totalAmount', state.totalAmount);
+            setLocal("cartItems", state.items);
+            setLocal("totalAmount", state.totalAmount);
         },
     },
 });

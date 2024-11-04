@@ -1,55 +1,100 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {setFilter, setSearch} from '../../features/filterSlice.js';
+import {setFilter, setSearch, setSort} from '../../store/slices/filterSlice.js';
+import {useState} from "react";
+import {
+    FilterOption,
+    FilterSection,
+    FilterTitle,
+    Search,
+    SidebarContainer,
+    SortDropdown,
+    ToggleLeftButton
+} from "./styles.js";
 
-export default function FilterSidebar() {
+export default function FilterSidebar(toggleSidebar,isOpen) {
     const dispatch = useDispatch();
     const search = useSelector(state => state.filters.search);
+    const [category, setCategory] = useState('');
+    const [priceRange, setPriceRange] = useState('');
 
-    const handleCategoryChange = (event) => {
-        dispatch(setFilter({type: 'category', value: event.target.value}));
+
+    const handleCategoryChange = (value) => {
+        dispatch(setFilter({type: 'category', value: value}));
+        setCategory(value);
     };
 
-    const handlePriceRangeChange = (event) => {
-        dispatch(setFilter({type: 'priceRange', value: event.target.value}));
+    const handlePriceRangeChange = (value) => {
+        dispatch(setFilter({type: 'priceRange', value: value}));
+        setPriceRange(value);
+    };
+
+    const handleSortChange = (e) => {
+        dispatch(setSort(e.target.value));
     };
 
     return (
-        <aside className="filter-sidebar">
+        <>
+            <ToggleLeftButton onClick={toggleSidebar}>
+                {isOpen ? 'Close' : 'Filters'}
+            </ToggleLeftButton>
+            <SidebarContainer isOpen={isOpen}>
 
-            <div>
-                <label htmlFor="search">Search</label>
-                <input
-                    id="search"
-                    type="text"
-                    placeholder="Search products..."
-                    value={search}
-                    onChange={(e) => dispatch(setSearch(e.target.value))}
-                />
-            </div>
+                <div>
+                    <Search
+                        id="search"
+                        type="text"
+                        placeholder="Search products..."
+                        value={search}
+                        onChange={(e) => dispatch(setSearch(e.target.value))}
+                    />
+                </div>
 
-            <h3>Filter</h3>
+                <FilterSection>
+                    <FilterTitle>Sort by</FilterTitle>
+                    <SortDropdown id="sort" onChange={handleSortChange}>
+                        <option value="">All</option>
+                        <option value="price-down">Price: Low to High</option>
+                        <option value="price-up">Price: High to Low</option>
+                        <option value="popularity">Popularity</option>
+                    </SortDropdown>
+                </FilterSection>
 
-            <div>
-                <label htmlFor='category'>Category:</label>
-                <select id='category' onChange={handleCategoryChange}>
-                    <option value="">All</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="jewelery">Jewelery</option>
-                    <option value="men's clothing">Mens Clothing</option>
-                    <option value="women's clothing">Womens Clothing</option>
-                </select>
-            </div>
+                <FilterSection>
+                    <FilterTitle>Category</FilterTitle>
+                    {['All', 'Electronics', 'Jewelery', "Men's Clothing", "Women's Clothing"].map((cat) => (
+                        <FilterOption
+                            key={cat}
+                            className={category === cat.toLowerCase() ? 'active' : ''}
+                            onClick={() => handleCategoryChange(cat.toLowerCase())}
+                        >
+                            <input
+                                type="radio"
+                                checked={category === cat.toLowerCase()}
+                                onChange={() => handleCategoryChange(cat.toLowerCase())}
+                            />
+                            {cat}
+                        </FilterOption>
+                    ))}
+                </FilterSection>
 
-            <div>
-                <label htmlFor='price'>Price Range:</label>
-                <select id='price' onChange={handlePriceRangeChange}>
-                    <option value="">All</option>
-                    <option value="0-100">$0 - $100</option>
-                    <option value="100-200">$100 - $200</option>
-                    <option value="200-500">$200 - $500</option>
-                    <option value="500-1000">$500 - $1000</option>
-                </select>
-            </div>
-        </aside>
+                <FilterSection>
+                    <FilterTitle>Price Range</FilterTitle>
+                    {['All', '0-100', '100-200', '200-500', '500-1000'].map((range) => (
+                        <FilterOption
+                            key={range}
+                            className={priceRange === range.toLowerCase() ? 'active' : ''}
+                            onClick={() => handlePriceRangeChange(range.toLowerCase())}
+                        >
+                            <input
+                                type="radio"
+                                checked={priceRange === range.toLowerCase()}
+                                onChange={() => handlePriceRangeChange(range.toLowerCase())}
+                            />
+                            ${range.split('-').join(' - $')}
+                        </FilterOption>
+                    ))}
+                </FilterSection>
+            </SidebarContainer>
+        </>
     );
 }

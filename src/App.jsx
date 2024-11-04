@@ -1,28 +1,32 @@
-import './index.css';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainLayout from "./layouts/index.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
+import GlobalStyle from "./styles/GlobalStyle.js";
 
-
-const queryClient = new QueryClient();
-
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            retry: 1,
+        },
+    },
+});
 
 export default function App() {
-
     return (
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
-                <div className="app">
+                <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<MainLayout/>}/>
-                        <Route path="/cart" element={<CartPage/>}/>
-                        <Route path="*" element={<NotFoundPage/>}/>
+                        <Route path="/" element={<MainLayout />} />
+                        <Route path="/cart" element={<CartPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
                     </Routes>
-                </div>
+                </BrowserRouter>
             </QueryClientProvider>
         </Provider>
     )

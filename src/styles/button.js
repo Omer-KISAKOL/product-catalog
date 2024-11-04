@@ -6,11 +6,11 @@ export const Button = styled.button`
     border: none;
     border-radius: 4px;
     color: #fff;
-    background-color: ${props => (props.primary ? '#0003cd' : '#ff0000')};
+    background-color: ${props => (props.primary ? '#6534ff' : '#ff0000')};
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: ${props => (props.primary ? '#3939f1' : '#e21f1f')};
+        background-color: ${props => (props.primary ? '#63bdfb' : '#e21f1f')};
     }
 `;

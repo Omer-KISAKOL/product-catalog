@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const filterSlice = createSlice({
-    name: 'filters',
+    name: "filters",
     initialState: {
         filter: {},
-        sort: '',
-        search: '',
+        sort: "",
+        search: "",
     },
     reducers: {
         setFilter(state, action) {

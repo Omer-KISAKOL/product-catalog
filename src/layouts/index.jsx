@@ -1,25 +1,69 @@
-import SortingBar from "./leftbar/SortingBar.jsx";
 import FilterSidebar from "./leftbar/FilterSidebar.jsx";
 import HomePage from "../pages/HomePage.jsx";
-import {RightBar} from "./rightbar/index.jsx";
+import {useEffect, useRef, useState} from 'react';
+import {
+    LayoutContainer,
+    LayoutContent,
+    MainContent,
+    Navbar,
+    StickySidebar, ToggleButton,
+} from "./styles.js";
+import {ToggleLeftButton} from "./leftbar/styles.js";
+import {FaCartShopping} from "react-icons/fa6";
+import {Link} from "react-router-dom";
 
 export default function MainLayout() {
+    const [isOpen, setIsOpen] = useState(false);
+    const leftSidebarRef = useRef(null);
+    const toggleLeftButtonRef = useRef(null);
+
+    const toggleSidebar = () => setIsOpen(!isOpen);
+
+    const handleClickOutside = (e) => {
+        if (
+            isOpen &&
+            leftSidebarRef.current &&
+            toggleLeftButtonRef.current &&
+            !leftSidebarRef.current.contains(e.target) &&
+            !toggleLeftButtonRef.current.contains(e.target)
+        ) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen]);
+
     return (
-        <div>
+        <LayoutContainer>
 
-            <div>
-                <div><FilterSidebar/></div>
-                <div><SortingBar/></div>
-            </div>
+            <Navbar>
+                <ToggleLeftButton ref={toggleLeftButtonRef} onClick={toggleSidebar}>
+                    {isOpen ? 'Close' : 'Filters'}
+                </ToggleLeftButton>
+                <Link to='/cart' target="_blank">
+                    <ToggleButton>
+                        <FaCartShopping/>
+                    </ToggleButton>
+                </Link>
+            </Navbar>
 
-            <div>
-                <HomePage/>
-            </div>
+            <LayoutContent>
+                <StickySidebar ref={leftSidebarRef} isOpen={isOpen}>
+                    <FilterSidebar toggleSidebar={toggleSidebar} isOpen={isOpen}/>
+                </StickySidebar>
 
-            <div>
-                <RightBar/>
-            </div>
+                <MainContent>
+                    <HomePage/>
+                </MainContent>
 
-        </div>
+            </LayoutContent>
+
+
+        </LayoutContainer>
     )
 }
